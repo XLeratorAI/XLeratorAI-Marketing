@@ -1,7 +1,8 @@
 const { Resend } = require('resend');
 const { verifyRecaptcha } = require('./_recaptcha');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Created on first use so a missing key returns a clear error instead of crashing the function
+let resend = null;
 
 const TEAM_EMAIL = 'info@xleratorai.com';
 
@@ -186,6 +187,12 @@ module.exports = async function handler(req, res) {
   }
 
   const data = { name, title, company, size, email, phone, interest, message };
+
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is not set; cannot send contact email.');
+    return res.status(503).json({ error: 'Our contact form is temporarily unavailable. Please email us directly at info@xleratorai.com.' });
+  }
+  if (!resend) resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     // Send both emails concurrently

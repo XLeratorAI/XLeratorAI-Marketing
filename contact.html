@@ -1892,7 +1892,8 @@ document.addEventListener('DOMContentLoaded', function () {
         show("Message sent. Check your inbox for a confirmation; we'll be in touch within one business day.", false);
         form.reset();
       } else {
-        show((data.error || 'Something went wrong.') + ' You can also email info@xleratorai.com.', true);
+        var msg = data.error || 'Something went wrong.';
+        show(msg.indexOf('info@xleratorai.com') === -1 ? msg + ' You can also email info@xleratorai.com.' : msg, true);
       }
     } catch (err) {
       show('We could not send your message. Please try again, or email info@xleratorai.com.', true);
