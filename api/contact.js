@@ -10,6 +10,7 @@ const TEAM_EMAIL = 'info@xleratorai.com';
 const INTEREST_LABELS = {
   problem: 'Business problem / POC',
   partner: 'Consulting partnership',
+  'small-business': 'Small business application',
   'sweet-spot': 'AI Sweet Spot',
   architecture: 'Trust / architecture review',
   solutions: 'XLeratorAI solutions',
