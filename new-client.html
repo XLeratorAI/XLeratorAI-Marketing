@@ -1834,6 +1834,7 @@ body.v3-home {
 .nc-bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--v3-teal),var(--v3-blue));border-radius:99px;transition:width .25s ease}
 .nc-step{border:0;margin:0;padding:0;min-width:0}
 .nc-step[hidden]{display:none}
+.nc-step>legend:focus,.nc-done:focus{outline:none}
 .nc-step>legend{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:-.03em;color:var(--v3-navy);padding:0;margin:0 0 6px}
 .nc-help{font-size:.9rem;line-height:1.65;color:var(--v3-muted);margin:0 0 20px}
 .nc-field{display:block;margin:0 0 18px}
@@ -2500,7 +2501,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!window.turnstile) { setTimeout(renderTs, 300); return; }
     tsId = window.turnstile.render('#ncTs', { sitekey: TS_SITEKEY, theme: 'light', callback: function (t) { tsToken = t; }, 'expired-callback': function () { tsToken = ''; }, 'error-callback': function () { tsToken = ''; } });
   }
-  function show(i) {
+  // quiet = the first showing when the page loads: do not scroll or move focus then, only when the person moves between steps.
+  function show(i, quiet) {
     cur = Math.max(0, Math.min(last, i));
     steps.forEach(function (s, n) { s.hidden = n !== cur; });
     $('ncStepLabel').textContent = 'Step ' + (cur + 1) + ' of ' + steps.length;
@@ -2511,6 +2513,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setHidden($('ncSubmit'), cur !== last);
     $('ncStatus').textContent = ''; $('ncStatus').className = 'nc-status';
     if (cur === last) { fillSummary($('ncSummary'), true); renderTs(); }
+    if (quiet) return;
     var lg = steps[cur].querySelector('legend'); if (lg) { lg.tabIndex = -1; lg.focus({ preventScroll: true }); }
     $('ncForm-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -2640,7 +2643,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(a); a.click(); a.remove();
   });
 
-  restore(); syncUI(); show(0);
+  restore(); syncUI(); show(0, true);
 })();
 
 </script></body>
