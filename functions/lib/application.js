@@ -22,7 +22,8 @@ const ENUMS = {
   startWhen: ['month', 'one_three', 'later', 'none'],
 };
 const SENSITIVE_KEYS = ['health', 'money', 'children', 'accounts', 'ids'];
-const ALL_SENSITIVE = [...SENSITIVE_KEYS, 'none'];
+// 'payments' (taking payments through a provider such as Stripe) is recorded for the team but is NOT a sensitive-data flag.
+const ALL_SENSITIVE = [...SENSITIVE_KEYS, 'payments', 'none'];
 
 const LABELS = {
   companyType: { llc: 'LLC', corp: 'Corporation', sole: 'Sole proprietor', partnership: 'Partnership', not_formed: 'Not formed yet', other: 'Other' },
@@ -37,7 +38,7 @@ const LABELS = {
   regulated: { yes: 'Yes', no: 'No', not_sure: 'Not sure' },
   helpLevel: { self: 'Build it myself', with_us: 'Build it with us', run_it: 'We build and run it', not_sure: 'Not sure yet' },
   startWhen: { month: 'Within a month', one_three: 'In 1 to 3 months', later: 'Later', none: 'No date' },
-  sensitive: { health: 'Health or medical information', money: 'Money or payments', children: 'Children', accounts: 'Logging in to or managing other people’s accounts', ids: 'ID numbers', none: 'None of these / not sure' },
+  sensitive: { health: 'Health or medical information', payments: 'Takes payments through a payment provider (not flagged)', money: 'Stores people’s card or bank details itself', children: 'Children', accounts: 'Logging in to or managing other people’s accounts', ids: 'ID numbers', none: 'None of these / not sure' },
 };
 
 const str = (v) => (typeof v === 'string' ? v.trim() : '');
@@ -153,7 +154,7 @@ export function buildTeamEmail(id, c, checks, when) {
   const L = (k, v) => (LABELS[k] && LABELS[k][v]) || v;
   const sens = c.sensitive.map((s) => LABELS.sensitive[s]).join('; ');
   const flag = c.isSensitive
-    ? `<div style="background:#fdecea;border:1px solid #f5c2bd;border-radius:10px;padding:14px 18px;margin:0 0 18px;color:${RED};font-size:14px;font-weight:600;">SENSITIVE: the applicant ticked ${esc(c.sensitive.filter((s) => s !== 'none').join(', '))}. Review first. Own database from day one and a human review before any real data.</div>`
+    ? `<div style="background:#fdecea;border:1px solid #f5c2bd;border-radius:10px;padding:14px 18px;margin:0 0 18px;color:${RED};font-size:14px;font-weight:600;">SENSITIVE: the applicant ticked ${esc(c.sensitive.filter((s) => SENSITIVE_KEYS.includes(s)).map((s) => LABELS.sensitive[s]).join('; '))}. Review first. Own database from day one and a human review before any real data.</div>`
     : '';
   const domainRows = [];
   domainRows.push(row('Choice', L('domainChoice', c.domainChoice)));
