@@ -6,13 +6,16 @@
 //   3. Re-runs the domain checks itself, so the team sees a trustworthy result.
 //   4. Stores the application as a record, if a KV namespace is bound as APPLICATIONS.
 //   5. Emails the team at newclient@xleratorai.com.
+//   6. Sends a signed copy to Data Orchestrator for the Patch Factory (see ../lib/forward.js). Never blocks the applicant.
 // It sends NO email to the applicant: they get a reference number on screen and we contact them.
 //
 // Secrets (Pages > Settings > Variables and Secrets): RESEND_API_KEY, TURNSTILE_SECRET_KEY.
 // Optional binding (Pages > Settings > Bindings): KV namespace APPLICATIONS.
+// Optional, for the Patch Factory: PATCH_FACTORY_URL and PATCH_FACTORY_SECRET.
 
 import { checkDomain } from '../lib/domain.js';
 import { validateApplication, buildTeamEmail, newId } from '../lib/application.js';
+import { forwardApplication } from '../lib/forward.js';
 
 const TEAM_EMAIL = 'newclient@xleratorai.com';
 const FROM_EMAIL = 'XLeratorAI <noreply@xleratorai.com>';
@@ -41,7 +44,7 @@ async function sendEmail(apiKey, message) {
   return res.json();
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost({ request, env, waitUntil }) {
   let body;
   try { body = await request.json(); } catch (_) { return respond({ error: 'Invalid request.' }, 400); }
   if (!body || typeof body !== 'object') return respond({ error: 'Invalid request.' }, 400);
@@ -100,6 +103,11 @@ export async function onRequestPost({ request, env }) {
     // The record is stored, but nobody has been told. Do not say it worked.
     return respond({ error: `Something went wrong sending your application. ${FALLBACK}`, stored }, 500);
   }
+
+  // The team has been told. Now hand the application to the Patch Factory. Not awaited by the applicant's
+  // response when waitUntil is available; either way a failure is logged and never shown to them.
+  const forward = forwardApplication(env, record);
+  if (typeof waitUntil === 'function') waitUntil(forward); else await forward;
   return respond({ success: true, id });
 }
 
