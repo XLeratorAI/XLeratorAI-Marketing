@@ -4,13 +4,13 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="robots" content="noindex, nofollow"/>
-<title>Claim Your Plot | XLeratorAI</title>
+<title>Claim Your Patch | XLeratorAI</title>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Claim your plot in the AI Community Garden: tell us about your idea, check your web address, and we will set up your Patch and book a first review." name="description"/>
+<meta content="Claim your patch in the AI Community Garden: tell us about your idea, check your web address, and we will get it planted and book a first review." name="description"/>
 <meta content="website" property="og:type"/>
 <meta content="XLeratorAI" property="og:site_name"/>
-<meta content="Claim Your Plot | XLeratorAI" property="og:title"/>
-<meta content="Claim your plot in the AI Community Garden: tell us about your idea, check your web address, and we will set up your Patch and book a first review." property="og:description"/>
+<meta content="Claim Your Patch | XLeratorAI" property="og:title"/>
+<meta content="Claim your patch in the AI Community Garden: tell us about your idea, check your web address, and we will get it planted and book a first review." property="og:description"/>
 <meta content="https://www.xleratorai.com/new-client" property="og:url"/>
 <meta content="https://www.xleratorai.com/og-xleratorai.jpg" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
@@ -1921,8 +1921,8 @@ body.v3-home {
 <main>
 <section class="nc-hero"><div class="v3-wrap">
 <div class="v3-eyebrow">THE AI COMMUNITY GARDEN</div>
-<h1>Claim your plot.<br/><span>Start in The Patch.</span></h1>
-<p class="nc-lead">Tell us about your idea. It takes about ten minutes and you do not need a finished plan. We read every request ourselves, set up your private plot, and book a first look together.</p>
+<h1>Claim your patch.<br/><span>Start planting seeds.</span></h1>
+<p class="nc-lead">Tell us about your idea. It takes about ten minutes and you do not need a finished plan. We read every request ourselves, set up your private patch, and book a first look together.</p>
 </div></section>
 
 <section class="v3-section nc-main"><div class="v3-wrap nc-grid">
@@ -1930,8 +1930,8 @@ body.v3-home {
 <aside class="nc-side" aria-labelledby="ncNotesTitle">
 <h2 id="ncNotesTitle">Before you start</h2>
 <ul>
-<li><strong>Every plot starts in The Patch.</strong> That is where you plant and tinker and see your first version. The Patch is $19 a month, and you can move up to The Greenhouse or The Farmers’ Market whenever your idea is ready.</li>
-<li><strong>A person reads this.</strong> We will get back to you ourselves to set up your plot and book your first review. When you finish, you get a reference number on screen: keep it.</li>
+<li><strong>Every idea starts in The Patch.</strong> That is where you plant and tinker and see your first version. The Patch is $19 a month, and you can move up to The Greenhouse or The Farmers’ Market whenever your idea is ready.</li>
+<li><strong>A person reads this.</strong> We will get back to you ourselves to set up your patch and book your first review. When you finish, you get a reference number on screen: keep it.</li>
 <li><strong>Your code, your data and your web address stay yours.</strong> A short agreement comes first.</li>
 <li><strong>Please do not type</strong> passwords, keys, account numbers or ID numbers anywhere on this form.</li>
 <li><strong>Your answers</strong> are used only to review your request and to contact you. We do not sell them. <a href="/privacy" target="_blank" rel="noopener">Read the privacy notice</a>.</li>
@@ -2110,7 +2110,7 @@ body.v3-home {
 <legend>Review and send</legend>
 <p class="nc-help">Please read your answers. Use “Change” to fix anything.</p>
 <dl class="nc-summary" id="ncSummary"></dl>
-<div class="nc-group" data-group="agree"><label class="nc-choice"><input type="checkbox" name="agree"/><span>I have read “Before you start” and the <a href="/privacy" target="_blank" rel="noopener">privacy notice</a>. I understand this is a request, not a contract, and that XLeratorAI will look at it before setting up my plot. I have not typed any passwords, keys or account numbers.</span></label><span class="nc-err" role="alert"></span></div>
+<div class="nc-group" data-group="agree"><label class="nc-choice"><input type="checkbox" name="agree"/><span>I have read “Before you start” and the <a href="/privacy" target="_blank" rel="noopener">privacy notice</a>. I understand this is a request, not a contract, and that XLeratorAI will look at it before setting up my patch. I have not typed any passwords, keys or account numbers.</span></label><span class="nc-err" role="alert"></span></div>
 <div class="nc-ts" id="ncTs"></div>
 <p class="nc-status" id="ncStatus" role="status" aria-live="polite"></p>
 </fieldset>
@@ -2118,7 +2118,7 @@ body.v3-home {
 <div class="nc-nav">
 <button type="button" class="nc-btn nc-btn-quiet" id="ncBack" hidden>Back</button>
 <button type="button" class="nc-btn nc-btn-primary" id="ncNext" style="margin-left:auto">Next</button>
-<button type="submit" class="nc-btn nc-btn-primary" id="ncSubmit" hidden style="margin-left:auto">Claim my plot</button>
+<button type="submit" class="nc-btn nc-btn-primary" id="ncSubmit" hidden style="margin-left:auto">Claim my patch</button>
 </div>
 </form>
 </div>
@@ -2131,7 +2131,7 @@ body.v3-home {
 <p class="nc-help"><strong>Please keep this number.</strong> We do not send automatic emails. You can print or save this page.</p>
 <ol>
 <li><strong>We read it ourselves,</strong> and get back to you at <strong id="ncDoneEmail"></strong>.</li>
-<li><strong>We fence in your plot.</strong> After a short agreement and a quick call, we set up your private workspace in The Patch.</li>
+<li><strong>We fence in your patch.</strong> After a short agreement and a quick call, we set up your private workspace in The Patch.</li>
 <li><strong>You take a first look.</strong> We send you a login so you can see the first version.</li>
 <li><strong>We book your first review meeting</strong> to talk through what you see and what to grow next.</li>
 </ol>
@@ -2649,9 +2649,9 @@ document.addEventListener('DOMContentLoaded', function() {
   $('ncPrint').addEventListener('click', function () { window.print(); });
   $('ncDownload').addEventListener('click', function () {
     var id = $('ncDone').getAttribute('data-ref') || '';
-    var lines = ['XLeratorAI: claim your plot', 'Reference: ' + id, ''].concat(rows().map(function (r) { return r[1] + ': ' + r[2]; }));
+    var lines = ['XLeratorAI: claim your patch', 'Reference: ' + id, ''].concat(rows().map(function (r) { return r[1] + ': ' + r[2]; }));
     var blob = new Blob([lines.join('\r\n')], { type: 'text/plain' });
-    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'xleratorai-plot-request-' + id + '.txt';
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'xleratorai-patch-request-' + id + '.txt';
     document.body.appendChild(a); a.click(); a.remove();
   });
 
